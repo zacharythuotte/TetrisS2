@@ -30,15 +30,10 @@ OptionWindow::OptionWindow(QWidget *parent) : QMainWindow(parent)
 	layoutSlider = new QGridLayout();
 
 	labelSliderTitle = new QLabel("Niveau de jeu");
-	//labelSliderTitle->setFrameStyle(QFrame::StyledPanel);
-	//labelSliderTitle->setStyleSheet("background-color: yellow");
-	//labelSliderTitle->setFixedSize(labelSliderTitle->size());
 	labelSliderTitle->setMaximumWidth(400);
 
 	labelSliderSpeed = new QLabel(QString::number(difficultyToLevel(startDifficulty))); //Valeur par defaut est vitesse en memoire
 	labelSliderSpeed->setFixedWidth(labelSliderSpeed->width());
-	//labelSliderSpeed->setFrameStyle(QFrame::StyledPanel);
-	//labelSliderSpeed->setStyleSheet("background-color: yellow");
 
 	sliderSpeed = new QSlider(Qt::Horizontal);
 	sliderSpeed->setTickPosition(QSlider::TicksBelow);
@@ -46,13 +41,12 @@ OptionWindow::OptionWindow(QWidget *parent) : QMainWindow(parent)
 	sliderSpeed->setRange(0, 9);
 	sliderSpeed->setValue(0);
 	sliderSpeed->setFixedWidth(500);
-	//sliderSpeed->setStyleSheet("background-color: gray");
 	sliderSpeed->setMaximumWidth(sliderSpeed->width());
 
 	QObject::connect(sliderSpeed, SIGNAL(valueChanged(int)), this, SLOT(changeSpeed()));
 
 	layoutSlider->addWidget(labelSliderTitle, 0, 0, Qt::AlignCenter);
-	layoutSlider->addWidget(labelSliderSpeed, 0, 1, Qt::AlignCenter);
+	layoutSlider->addWidget(labelSliderSpeed, 0, 1, Qt::AlignRight);
 	layoutSlider->addWidget(sliderSpeed, 1, 0, 1, 2, Qt::AlignCenter);
 	
 	sliderWidget = new QWidget();
@@ -67,9 +61,19 @@ OptionWindow::OptionWindow(QWidget *parent) : QMainWindow(parent)
 	//sliderWidget->setStyleSheet("border: 1px solid black; background-color: gray");
 	layoutOption->addWidget(sliderWidget, 0, 0, 1, 2, Qt::AlignCenter);
 
+	//LABEL INSTRUCTIONS
+	labelInstructions = new QLabel("Instructions de jeu \n\n\nUtilisez les fleches gauche et droite pour deplacer la piece lateralement et la fleche du haut (ou [Z]) pour pivoter.\n\nVous pouvez deposer une piece avec [espace].");
+	labelInstructions->setWordWrap(true);
+	labelInstructions->setFrameStyle(QFrame::Box | QFrame::Raised);
+	labelInstructions->setAlignment(Qt::AlignLeft);
+	labelInstructions->setAlignment(Qt::AlignVCenter);
+	labelInstructions->setStyleSheet("QLabel { background-color : white; color : black; font: 15pt; }");
+	labelInstructions->setFixedSize(700, 250);
+
 	//PLACEMENT LAYOUT PRINCIPAL
-	layoutOption->addWidget(returnButton, 1, 0, Qt::AlignCenter);
-	layoutOption->addWidget(acceptButton, 1, 1, Qt::AlignCenter);
+	layoutOption->addWidget(labelInstructions, 1, 0, 1, 2, Qt::AlignCenter);
+	layoutOption->addWidget(returnButton, 2, 0, Qt::AlignRight);
+	layoutOption->addWidget(acceptButton, 2, 1, Qt::AlignLeft);
 
 	optionWidget->setLayout(layoutOption);
 	//optionWidget->setStyleSheet("border: 2px solid blue");

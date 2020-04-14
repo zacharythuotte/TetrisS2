@@ -31,6 +31,10 @@ public slots:
 	void play();
 	void menu();
 	void endGame();
+
+signals:
+	void gameEnded(int totalScore);
+
 private:
 	int lvl = 0;
 	QWidget *gameWidget;

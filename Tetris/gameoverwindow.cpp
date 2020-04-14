@@ -1,28 +1,16 @@
 #include "GameOverWindow.h"
-#include "MainWindow.h"
-
-using namespace std;
 
 GameOverWindow::GameOverWindow(QWidget *parent) : QMainWindow(parent)
 {
-	mainWindow = parent;
-
 	gameOverWidget = new QWidget();
 
 	//LAYOUT PRINCIPAL
 	layoutGameOver = new QVBoxLayout();
 
 	//LABEL GAME OVER
-	string labelText = "Bravo votre score est de :\n ";
-	labelText.append("METTRE SCORE ICI\n");
-	labelText.append("Entrez votre nom pour continuer :");
-	gameOverLabel = new QLabel(QString::fromStdString(labelText));
-	gameOverLabel->setAlignment(Qt::AlignCenter);
-	gameOverLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
-	gameOverLabel->setStyleSheet("QLabel { background-color : white; color : black; font: 25pt; }");
-	//gameOverLabel->setMaximumSize(500, 500);
-
-	//gameOverLabel->setText
+	gameOverLabel = createLabel("Votre score est de :");
+	gameScoreLabel = createLabel(" ");
+	instructionLabel = createLabel("Entrez un nom valide pour le sauvegarder");
 
 	//BOUTON D OPTION
 	acceptButton = new QPushButton("Accepter");
@@ -33,14 +21,21 @@ GameOverWindow::GameOverWindow(QWidget *parent) : QMainWindow(parent)
 	//LINE EDIT DE NOM POUR LE SCORE
 	nameEdit = new QLineEdit();
 	nameEdit->setPlaceholderText("Votre nom");
+	nameEdit->setMaxLength(32);
 	nameEdit->setMaximumWidth(300);
 	QObject::connect(nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(verifyName()));
 
-
 	//PLACEMENT LAYOUT PRINCIPAL
-	layoutGameOver->addWidget(gameOverLabel, Qt::AlignCenter);
-	layoutGameOver->addWidget(nameEdit, Qt::AlignCenter);
+	layoutGameOver->addWidget(gameOverLabel);
+	layoutGameOver->setAlignment(gameOverLabel, Qt::AlignHCenter);
+	layoutGameOver->addWidget(gameScoreLabel);
+	layoutGameOver->setAlignment(gameScoreLabel, Qt::AlignHCenter);
+	layoutGameOver->addWidget(instructionLabel);
+	layoutGameOver->setAlignment(instructionLabel, Qt::AlignHCenter);
+	layoutGameOver->addWidget(nameEdit);
+	layoutGameOver->setAlignment(nameEdit, Qt::AlignHCenter);
 	layoutGameOver->addWidget(acceptButton, Qt::AlignCenter);
+	layoutGameOver->setAlignment(acceptButton, Qt::AlignHCenter);
 
 	gameOverWidget->setLayout(layoutGameOver);
 	setCentralWidget(gameOverWidget);
@@ -54,9 +49,11 @@ GameOverWindow::~GameOverWindow()
 
 void GameOverWindow::verifyName()
 {
+	//Si le nom entre est valide seulement
 	if (!nameEdit->text().isEmpty())
 	{
 		acceptButton->setEnabled(true);
+		playerName = (nameEdit->text()).toStdString();
 	}
 	else
 	{
@@ -66,7 +63,25 @@ void GameOverWindow::verifyName()
 
 void GameOverWindow::closeGameOver() 
 {
-	cout << "TEST";
+	emit endGameOver(playerName);
 	//cout << nameEdit->text();
-	//this->parent.showMainWindow();
+	//this->close();
+}
+
+void GameOverWindow::setGameScore(int imputScore)
+{
+	gameScore = imputScore;
+
+	gameScoreLabel->setText(QString::number(imputScore));
+}
+
+//CREER LABEL
+QLabel *GameOverWindow::createLabel(const QString &text)
+{
+	QLabel *label = new QLabel(text);
+	label->setFrameStyle(QFrame::Box | QFrame::Raised);
+	label->setAlignment(Qt::AlignCenter);
+	label->setStyleSheet("QLabel { background-color : white; color : black; font: 20pt; }");
+	label->setFixedSize(700, 100);
+	return label;
 }

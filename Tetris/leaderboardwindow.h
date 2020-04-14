@@ -5,7 +5,13 @@
 #include <qlayout.h>
 #include <Qpushbutton.h>
 #include <Qlabel.h>
-#include <qtablewidget.h>
+#include <QTableWidget>
+#include <qheaderview.h>
+#include <qsizepolicy.h>
+
+#include "leaderboard.h"
+
+using namespace std;
 
 class LeaderboardWindow : public QMainWindow
 {
@@ -14,14 +20,17 @@ class LeaderboardWindow : public QMainWindow
 public:
 	LeaderboardWindow(QWidget *parent = nullptr);
 	~LeaderboardWindow();
-
+	void setLeaderboard(Leaderboard iLeaderboard);
 
 public slots:
 
 private:
+	//MainWindow mWindow;
 	QWidget *leaderboardWidget;
-	QGridLayout *layoutLeaderboard;
+	QVBoxLayout *layoutLeaderboard;
 	QTableWidget *tableLeaderboard;
+	QLabel * titleLabel;
 	QPushButton *acceptButton;
+	QLabel *createLabel(const QString &text);
 };
 #endif // LEADERBOARDWINDOW_H

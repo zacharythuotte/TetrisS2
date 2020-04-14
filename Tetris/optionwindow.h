@@ -38,5 +38,6 @@ private:
 	QSlider *sliderSpeed;
 	QLabel *labelSliderTitle;
 	QLabel *labelSliderSpeed;
+	QLabel *labelInstructions;
 };
 #endif // MAINWINDOW_H

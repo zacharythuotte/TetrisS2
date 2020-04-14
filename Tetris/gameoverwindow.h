@@ -9,6 +9,10 @@
 #include <iostream>
 #include <string>
 
+//#include "MainWindow.h"
+
+using namespace std;
+
 class GameOverWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -16,16 +20,28 @@ class GameOverWindow : public QMainWindow
 public:
 	GameOverWindow(QWidget *parent = nullptr);
 	~GameOverWindow();
+	void setGameScore(int imputScore);
+
 public slots:
 	void verifyName();
 	void closeGameOver();
 
+signals:
+	void endGameOver(string pName);
+
 private:
+	int gameScore;
+
 	QWidget *mainWindow;
 	QWidget *gameOverWidget;
 	QLabel *gameOverLabel;
+	QLabel *gameScoreLabel;
+	QLabel *instructionLabel;
 	QLineEdit *nameEdit;
 	QVBoxLayout *layoutGameOver;
 	QPushButton *acceptButton;
+	string playerName;
+
+	QLabel *createLabel(const QString &text);
 };
 #endif // GAMEOVERWINDOW_H

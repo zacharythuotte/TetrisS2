@@ -152,6 +152,8 @@ void GameWindow::endGame()
 	labelGameOver->setAlignment(Qt::AlignCenter);
 	labelGameOver->setStyleSheet("background-color: rgba(255, 0, 0, 128); font: 25pt;");
 
+	emit gameEnded(scoreLcd->intValue());
+
 	GPLayout->addWidget(labelGameOver, 0, 1, 6, 1);
 	cout << "Fin";
 	BoutonPause->setEnabled(false);

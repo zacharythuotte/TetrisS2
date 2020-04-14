@@ -14,12 +14,15 @@
 #include <qwindow.h>
 #include <qapplication.h>
 #include <qstylefactory.h>
+#include <string>
 
 #include "optionwindow.h"
 #include "gamewindow.h"
 #include "gameoverwindow.h"
 #include "leaderboardwindow.h"
+#include "leaderboard.h"
 
+using namespace std;
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +31,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+	string lastPlayerScore;
+	string lastPlayerName;
+	Leaderboard *leaderboardScores;
 
 public slots:
 	void showOption();
@@ -35,11 +41,14 @@ public slots:
 	void showGameOver();
 	void showMainWindow();
 	void showLeaderboard();
+	void sendNewScore(string newName);
+	void saveTempScore(int tempScore);
 
 	void changeVolume();
 
 private:
 	const int BUTTON_MAX_WIDTH = 200; //Largeur maximale des boutons
+	int lastScore;
 
 	QWidget *centralWidget;
 	QStackedWidget *pagesStack; //Stack pour les pages du jeu (1 affichee a la fois)
@@ -53,6 +62,7 @@ private:
 	QAction *optionAct;
 	QAction *exitAct;
 	QLabel *screenTitle;
+	QLabel *creditsLabel;
 	OptionWindow *optionPage;
 	GameWindow *gamePage;
 	GameOverWindow *gameOverPage;

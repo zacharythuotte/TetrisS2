@@ -2,6 +2,8 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+	leaderboardScores = new Leaderboard();
+
 	centralWidget = new QWidget();
 	pagesStack = new QStackedWidget();
 	optionPage = new OptionWindow(this);
@@ -28,7 +30,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	//IMAGE TITRE
 	screenTitle = new QLabel();
 	screenTitle->setPixmap(QPixmap("./Image/Screentitle.png"));
+	screenTitle->setScaledContents(true);
+	screenTitle->setFixedSize(800, 300);
 	screenTitle->setAlignment(Qt::AlignCenter);
+
+	//CREDITS
+	creditsLabel = new QLabel();
+	creditsLabel->setAlignment(Qt::AlignCenter);
+	creditsLabel->setText("Projet de session equipe P-04 S2 GEGI H2020 USherbrooke\nInterface graphique par GI (joli1801 - phas2401 - thuz3401)");
+	creditsLabel->setStyleSheet("QLabel { color : white }");
+	creditsLabel->setFixedSize(400, 40);
+
 
 	//SLIDER (VOLUME)
 	sliderVolume = new QSlider(Qt::Horizontal);
@@ -53,25 +65,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	startButton->setFixedWidth(BUTTON_MAX_WIDTH);
 	QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(showOption()));
 
-	//optionButton = new QPushButton("Options");
-	//optionButton->setMaximumWidth(BUTTON_MAX_WIDTH);
-	//QObject::connect(optionButton, SIGNAL(clicked()), this, SLOT(showOption()));
-
 	leaderboardButton = new QPushButton("Voir meilleurs scores");
 	leaderboardButton->setFixedWidth(BUTTON_MAX_WIDTH);
 	QObject::connect(leaderboardButton, SIGNAL(clicked()), this, SLOT(showLeaderboard()));
-	//QObject::connect(volumeButton, SIGNAL(clicked()), musique, SLOT(stop()));
 
 	exitButton = new QPushButton("Quitter");
 	exitButton->setFixedWidth(BUTTON_MAX_WIDTH);
 	QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
 	//PLACEMENT LAYOUT PRINCIPAL
-	layoutPrincipal->addWidget(screenTitle, BUTTON_MAX_WIDTH, Qt::AlignCenter);
-	layoutPrincipal->addWidget(startButton, BUTTON_MAX_WIDTH, Qt::AlignCenter);
+	layoutPrincipal->addWidget(screenTitle, Qt::AlignHCenter);
+	layoutPrincipal->addWidget(creditsLabel);
+	layoutPrincipal->setAlignment(creditsLabel, Qt::AlignHCenter);
+	layoutPrincipal->addWidget(startButton, BUTTON_MAX_WIDTH, Qt::AlignHCenter);
 	//layoutPrincipal->addWidget(optionButton, BUTTON_MAX_WIDTH, Qt::AlignCenter);
-	layoutPrincipal->addWidget(leaderboardButton, BUTTON_MAX_WIDTH, Qt::AlignCenter);
-	layoutPrincipal->addWidget(exitButton, BUTTON_MAX_WIDTH, Qt::AlignCenter);
+	layoutPrincipal->addWidget(leaderboardButton, BUTTON_MAX_WIDTH, Qt::AlignHCenter);
+	layoutPrincipal->addWidget(exitButton, BUTTON_MAX_WIDTH, Qt::AlignHCenter);
 	layoutPrincipal->setAlignment(Qt::AlignCenter);
 	
 	centralWidget->setLayout(layoutPrincipal);
@@ -110,7 +119,7 @@ void MainWindow::showGame()
 {
 	gamePage = new GameWindow(this);
 	gamePage->setLvl(optionPage->startLevel);
-	//gamePage->show();
+	QObject::connect(gamePage, SIGNAL(gameEnded(int)), this, SLOT(saveTempScore(int)));
 
 	pagesStack->addWidget(gamePage);
 	pagesStack->setCurrentWidget(gamePage);
@@ -121,6 +130,7 @@ void MainWindow::showGame()
 
 void MainWindow::showLeaderboard()
 {
+	leaderboardPage->setLeaderboard(*leaderboardScores);
 	pagesStack->setCurrentWidget(leaderboardPage);
 }
 
@@ -128,6 +138,10 @@ void MainWindow::showLeaderboard()
 void MainWindow::showGameOver()
 {
 	gameOverPage = new GameOverWindow(this);
+	QObject::connect(gameOverPage, SIGNAL(endGameOver(string)), this, SLOT(sendNewScore(string)));
+
+	gameOverPage->setGameScore(lastScore);
+
 	pagesStack->addWidget(gameOverPage);
 	pagesStack->setCurrentWidget(gameOverPage);
 	//gameOverPage = new GameOverWindow(centralWidget);
@@ -139,6 +153,21 @@ void MainWindow::showGameOver()
 void MainWindow::changeVolume()
 {
 	musique->setVolume((sliderVolume->value())/100.0);
+}
+
+void MainWindow::saveTempScore(int tempScore)
+{
+	//cout << tempScore;
+	lastScore = tempScore;
+}
+
+//Ajoute au leadderboard le nouveau score et son auteur
+void MainWindow::sendNewScore(string newName)
+{
+	//cout << newName;
+
+	leaderboardScores->addScore(newName, lastScore);
+	showMainWindow();
 }
 
 void MainWindow::showMainWindow()
