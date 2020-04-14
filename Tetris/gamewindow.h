@@ -27,10 +27,10 @@ public:
 	bool isClosed = false;
 	void start();
 public slots:
-
 	void pause();
-	void continuer();
+	void play();
 	void menu();
+	void endGame();
 private:
 	int lvl = 0;
 	QWidget *gameWidget;
@@ -40,6 +40,7 @@ private:
 	QLCDNumber *niveauLcd;
 	QLCDNumber *lignesLcd;
 	QPushButton *BoutonPause;
+	QPushButton *BoutonPlay;
 	QPushButton *BoutonContinuer;
 	QPushButton *BoutonMenu;
 	

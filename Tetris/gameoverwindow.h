@@ -5,7 +5,9 @@
 #include <qlayout.h>
 #include <Qpushbutton.h>
 #include <Qlabel.h>
-#include <Qdebug.h>
+#include <qlineedit.h>
+#include <iostream>
+#include <string>
 
 class GameOverWindow : public QMainWindow
 {
@@ -15,13 +17,15 @@ public:
 	GameOverWindow(QWidget *parent = nullptr);
 	~GameOverWindow();
 public slots:
-	void goToMainWindow();
+	void verifyName();
+	void closeGameOver();
 
 private:
 	QWidget *mainWindow;
 	QWidget *gameOverWidget;
-	QGridLayout *layoutGameOver;
-	QGridLayout *layoutSlider;
+	QLabel *gameOverLabel;
+	QLineEdit *nameEdit;
+	QVBoxLayout *layoutGameOver;
 	QPushButton *acceptButton;
 };
 #endif // GAMEOVERWINDOW_H

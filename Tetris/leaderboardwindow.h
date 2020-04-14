@@ -14,8 +14,9 @@ class LeaderboardWindow : public QMainWindow
 public:
 	LeaderboardWindow(QWidget *parent = nullptr);
 	~LeaderboardWindow();
+
+
 public slots:
-	void goToMainWindow();
 
 private:
 	QWidget *leaderboardWidget;

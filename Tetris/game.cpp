@@ -21,13 +21,34 @@ Game ::Game() : QFrame()
 	linesClearedLvl = 0;
 
 	//mise a jour interface
+	//emit levelChange(levelNumber);
 	emit scoreChange(score);
 	emit linesChange(linesCleared);
 	this->repaint();
-	
+
+	//this->setSizeIncrement(40, 40);
+	this->setGeometry(50, 120, 100, 240);
 }
 
-Game ::~Game()
+//void Game::resizeEvent(QResizeEvent *event)
+//{
+//	/*int a  = event->size().width();
+//
+//	QRect *a = new QRect(0,0, 10, 240);*/
+//
+//	cout << "TEST1 ICI";
+//
+//	//this->setGeometry(0, 0, 10, 240);
+//	this->resize(event->size().height() / 2.4, event->size().height());
+//	//this->setBaseSize(event->size().width(), 2.4 * event->size().width());
+//
+//	//a->setSize(event->size().width(), 2.4 * event->size().width());
+//
+//	/*this->setFrameRect();
+//	this->adjustSize(event->size().width(), event->size().width());*/
+//}
+
+Game::~Game()
 {
     delete curForme;
 }
@@ -506,9 +527,10 @@ void Game :: loop()
 				i = level.getLevelNumber();
 			}
             lastAction = std::chrono::high_resolution_clock::now();
-
-			cout << "allo";
         }
     }
+
+	emit death();
+
     cout << "GAME OVER" << endl;
 }

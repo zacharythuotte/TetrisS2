@@ -26,6 +26,7 @@ class Game : public QFrame
 		void scoreChange(int score);
 		void linesChange(int numLines);
 		void levelChange(int level);
+		void death();
 
     public:
         Game();
@@ -54,6 +55,7 @@ class Game : public QFrame
 		int hauteurCarre() { return contentsRect().height() / HAUTEUR; }; 
 		void afficherProchaineForme();
 		QPointer<QLabel> labelProchaineForme;
+		/*void resizeEvent(QResizeEvent *event);*/
     private:
         Forme *curForme;
         Forme *preview;

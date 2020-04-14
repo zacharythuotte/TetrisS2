@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	musique->setSource(QUrl::fromLocalFile("./Image/TetrisMetal.wav"));
 	musique->play();
 	musique->setLoopCount(QSoundEffect::Infinite);
-	//musique->setVolume(0.5);
 
 	//LAYOUT
 	layoutPrincipal = new QVBoxLayout();
@@ -109,7 +108,7 @@ void MainWindow::showOption()
 //CETTE FONCTION MONTRE LA FENETRE DE JEU
 void MainWindow::showGame()
 {
-	gamePage = new GameWindow;
+	gamePage = new GameWindow(this);
 	gamePage->setLvl(optionPage->startLevel);
 	//gamePage->show();
 
@@ -128,7 +127,9 @@ void MainWindow::showLeaderboard()
 //CETTE FONCTION MONTRE LA FENETRE DE FIN DE JEU
 void MainWindow::showGameOver()
 {
-	pagesStack->setCurrentWidget(new GameOverWindow());
+	gameOverPage = new GameOverWindow(this);
+	pagesStack->addWidget(gameOverPage);
+	pagesStack->setCurrentWidget(gameOverPage);
 	//gameOverPage = new GameOverWindow(centralWidget);
 	//setCentralWidget(gameOverPage);
 	//QObject::connect(gameOverPage, SIGNAL(closed()), this, SLOT(showMainWindow()));

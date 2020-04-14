@@ -8,13 +8,6 @@ LeaderboardWindow::LeaderboardWindow(QWidget *parent) : QMainWindow(parent)
 	//LAYOUT PRINCIPAL
 	layoutLeaderboard = new QGridLayout();
 
-	//BACKGROUND DE LINTERFACE
-	/*QPixmap bkgnd("./Image/Background.jpg");
-	bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-	QPalette palette;
-	palette.setBrush(QPalette::Background, bkgnd);
-	this->setPalette(palette);*/
-
 	//GRILLE MEILLEURS SCORES
 	tableLeaderboard = new QTableWidget();
 	tableLeaderboard->setRowCount(10);
@@ -45,10 +38,5 @@ LeaderboardWindow::~LeaderboardWindow()
 {
 	delete acceptButton;
 	delete layoutLeaderboard;
-}
-
-void LeaderboardWindow::goToMainWindow()
-{
-	this->hide();
 }
 
