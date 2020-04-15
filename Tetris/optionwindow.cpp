@@ -32,7 +32,7 @@ OptionWindow::OptionWindow(QWidget *parent) : QMainWindow(parent)
 	labelSliderTitle = new QLabel("Niveau de jeu");
 	labelSliderTitle->setMaximumWidth(400);
 
-	labelSliderSpeed = new QLabel(QString::number(difficultyToLevel(startDifficulty))); //Valeur par defaut est vitesse en memoire
+	labelSliderSpeed = new QLabel(QString::number(startLevel)); //Valeur par defaut est vitesse en memoire
 	labelSliderSpeed->setFixedWidth(labelSliderSpeed->width());
 
 	sliderSpeed = new QSlider(Qt::Horizontal);
@@ -105,11 +105,5 @@ void OptionWindow::changeSpeed()
 int OptionWindow::levelToDifficulty(int l)
 {
 	return 1000.0 * (48.0 - (5.0*l)) / 60.0;
-}
-
-//Fonction qui retourne le niveau selon la difficulte (tick time)
-int OptionWindow::difficultyToLevel(int d)
-{
-	return ((60.0 * d / 1000.0) - 48.0) / -5.0;
 }
 

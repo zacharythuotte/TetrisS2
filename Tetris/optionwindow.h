@@ -19,8 +19,6 @@ public:
 	~OptionWindow();
 	int startDifficulty; //Vitesse entre 1000 (lent) et 100 (rapide)
 	int startLevel; //Niveau entre 0 (lent) et 9 (rapide)
-
-	int difficultyToLevel(int d);
 	int levelToDifficulty(int l);
 
 public slots:

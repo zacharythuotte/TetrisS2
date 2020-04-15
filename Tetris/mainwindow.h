@@ -32,7 +32,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 	string lastPlayerScore;
-	string lastPlayerName;
 	Leaderboard *leaderboardScores;
 
 public slots:
@@ -50,23 +49,20 @@ private:
 	const int BUTTON_MAX_WIDTH = 200; //Largeur maximale des boutons
 	int lastScore;
 
-	QWidget *centralWidget;
+	QWidget *centralWidget; //
 	QStackedWidget *pagesStack; //Stack pour les pages du jeu (1 affichee a la fois)
-	QVBoxLayout *layoutPrincipal;
-	QSoundEffect *musique;
-	QPushButton *startButton;
-	QPushButton *optionButton;
-	QPushButton *leaderboardButton;
-	QPushButton *exitButton;
-	QAction *startAct;
-	QAction *optionAct;
-	QAction *exitAct;
-	QLabel *screenTitle;
-	QLabel *creditsLabel;
-	OptionWindow *optionPage;
-	GameWindow *gamePage;
-	GameOverWindow *gameOverPage;
-	LeaderboardWindow *leaderboardPage;
+	QVBoxLayout *layoutPrincipal; //
+	QSoundEffect *musique; //
+	QPushButton *startButton; //
+	QPushButton *optionButton; //
+	QPushButton *leaderboardButton; //
+	QPushButton *exitButton; //
+	QLabel *screenTitle; //
+	QLabel *creditsLabel; //
+	OptionWindow *optionPage; //
+	GameWindow *gamePage; //
+	GameOverWindow *gameOverPage; //
+	LeaderboardWindow *leaderboardPage; //
 	QToolBar *toolBar;
 	QSlider *sliderVolume;
 };

@@ -25,7 +25,6 @@ public:
 public slots:
 
 private:
-	//MainWindow mWindow;
 	QWidget *leaderboardWidget;
 	QVBoxLayout *layoutLeaderboard;
 	QTableWidget *tableLeaderboard;
