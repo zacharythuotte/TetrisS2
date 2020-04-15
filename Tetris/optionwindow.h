@@ -29,10 +29,10 @@ public slots:
 private:
 	const int BUTTON_MAX_WIDTH = 200;
 
-	QWidget *optionWidget;
+	QWidget *optionWidget; //widget central
 	QWidget *sliderWidget; //Widget pour le groupe de widgets relies au slider
-	QGridLayout *layoutOption;
-	QGridLayout *layoutSlider;
+	QGridLayout *layoutOption; //layout principal d options
+	QGridLayout *layoutSlider; //layout des widgets relies au slider
 	QPushButton *returnButton;
 	QPushButton *acceptButton;
 	QSlider *sliderSpeed;

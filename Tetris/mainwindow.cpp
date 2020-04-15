@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	toolBar->setMaximumWidth(400);
 	toolBar->setMovable(false);
 	toolBar->setAutoFillBackground(true);
-	//toolBar->setStyleSheet("background-color: gray");
 	this->addToolBar(Qt::BottomToolBarArea, toolBar);
 
 	//BOUTONS MENU PRINCIPAL

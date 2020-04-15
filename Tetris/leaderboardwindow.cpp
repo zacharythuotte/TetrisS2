@@ -22,15 +22,14 @@ LeaderboardWindow::LeaderboardWindow(QWidget *parent) : QMainWindow(parent)
 	tableLeaderboard = new QTableWidget();
 	tableLeaderboard->setRowCount(10);
 	tableLeaderboard->setColumnCount(2);
-	tableLeaderboard->horizontalHeader()->setVisible(false);
+	//tableLeaderboard->horizontalHeader()->setVisible(false);
+	tableLeaderboard->setHorizontalHeaderLabels({ QString::fromStdString("Nom"), QString::fromStdString("Score") });
 	tableLeaderboard->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	tableLeaderboard->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	tableLeaderboard->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	tableLeaderboard->setDisabled(true);
 	tableLeaderboard->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	tableLeaderboard->setFixedSize(1000, 600);
-	
-	//tableLeaderboard->setMaximumSize(600, 600);
-	//tableLeaderboard->setItem(0, 0, new QTableWidgetItem("Hello"));
 	tableLeaderboard->setShowGrid(true);
 	layoutLeaderboard->addWidget(tableLeaderboard);
 	layoutLeaderboard->setAlignment(tableLeaderboard, Qt::AlignCenter);

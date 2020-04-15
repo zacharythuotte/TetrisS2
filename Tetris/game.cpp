@@ -448,10 +448,10 @@ void Game ::changerForme()
     int typeProchaineForme;
     delete curForme;
     curForme = prochaineForme;
-    typeProchaineForme = rand() % FORMEZ;
+	typeProchaineForme = rand() % 7;// FORMEZ;
     if(typeProchaineForme == curForme->getType())
     {  
-        typeProchaineForme = rand()% FORMEZ;
+		typeProchaineForme = rand() % 7; //FORMEZ;
     }
     prochaineForme = new Forme(typeProchaineForme);
 }
@@ -513,7 +513,7 @@ void Game :: loop()
 			this->repaint();
             mort();
 
-			cout << linesClearedLvl;
+			//cout << linesClearedLvl;
 			if (linesClearedLvl >= 10)
 			{
 				linesClearedLvl = linesClearedLvl - 10;
@@ -532,5 +532,5 @@ void Game :: loop()
 
 	emit death();
 
-    cout << "GAME OVER" << endl;
+    //cout << "GAME OVER" << endl;
 }

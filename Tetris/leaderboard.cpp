@@ -4,11 +4,8 @@ Leaderboard::Leaderboard()
 {
 	loadFromFile();
 }
-//
-//Leaderboard::~Leaderboard()
-//{
-//}
 
+//Pour ajouter un nouveau ComboScore au vecteur
 void Leaderboard::addScore(string name, int score)
 {
 	struct ComboScore newScore = { name, score };
@@ -43,15 +40,13 @@ void Leaderboard::saveToFile()
 	}
 }
 
-//Pour recuperer les scores du fichier .txt
+//Pour recuperer les scores du fichier .log
 void Leaderboard::loadFromFile()
 {
 	ifstream imput("Meilleurs_Scores.log");
 
 	if (imput.is_open())
 	{
-		cout << "Chargement des meilleurs scores";
-
 		string line;
 		ComboScore tempComboScore;
 
@@ -63,12 +58,11 @@ void Leaderboard::loadFromFile()
 			cout << line;
 
 			istringstream(line) >> tempComboScore.nbPoints;
-
 			//tempComboScore.nbPoints = stoi(line);
 
 			highScores.push_back(tempComboScore);
 		}
-
+		cout << "Chargement des meilleurs scores reussi a partir du fichier existant";
 		imput.close();
 	}
 }
